@@ -6,11 +6,11 @@ Set up global environment and run another script within, ala pdb, profile, etc
 
 .. image:: https://github.com/rpatterson/python-main-wrapper/workflows/Run%20linter,%20tests%20and,%20and%20release/badge.svg
 
-Use `main-wrapper` either as a command-line script or as a library to make `Python`_
+Use ``main-wrapper`` either as a command-line script or as a library to make `Python`_
 scripts that set up or change some global Python environment and then run another script
 within that environment.  It seeks to combine into one library all the gloss and polish
-of other Python software that does this, such as using `python -m` with `pdb` and
-`profile` in the standard library or the `coverage` package's command-line `run`
+of other Python software that does this, such as using ``python -m`` with ``pdb`` and
+``profile`` in the standard library or the ``coverage`` package's command-line ``run``
 command.
 
 
