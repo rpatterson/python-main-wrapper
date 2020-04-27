@@ -1,13 +1,14 @@
 ==============================================================================
-python-project-structure
+python-main-wrapper
 ==============================================================================
-Python project structure foundation or template
+main wrapper foundation or template
 ------------------------------------------------------------------------------
 
-.. image:: https://github.com/rpatterson/python-project-structure/workflows/Run%20linter,%20tests%20and,%20and%20release/badge.svg
+.. image:: https://github.com/rpatterson/python-main-wrapper/workflows/Run%20linter,%20tests%20and,%20and%20release/badge.svg
 
 This repository is meant to be used as a minimal, yet opinionated baseline for `Python`_
 software projects.  It includes:
+
 
 - Basic `Python "distribution"/project`_ metadata
 - A `Makefile`_ for local development build and maintenance tasks
@@ -26,7 +27,7 @@ Installation
 
 Install using any tool for installing standard Python 3 distributions such as `pip`_::
 
-  $ sudo pip3 install python-project-structure
+  $ sudo pip3 install main-wrapper
 
 
 Usage
@@ -34,7 +35,7 @@ Usage
 
 See the command-line help for details on options and arguments::
 
-  $ usage: python-project-structure [-h]
+  $ usage: python-main-wrapper [-h]
 
   Python project structure foundation or template, top-level package.
 

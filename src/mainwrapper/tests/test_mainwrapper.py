@@ -1,5 +1,5 @@
 """
-python-project-structure unit and integration tests.
+main-wrapper unit and integration tests.
 """
 
 import unittest
@@ -12,12 +12,12 @@ except ImportError:  # pragma: no cover
 
 import six
 
-import pythonprojectstructure
+import mainwrapper
 
 
-class PythonProjectStructureTests(unittest.TestCase):
+class MainwrapperTests(unittest.TestCase):
     """
-    python-project-structure unit and integration tests.
+    python-main-wrapper unit and integration tests.
     """
 
     def getCliErrorMessages(self, args):
@@ -27,7 +27,7 @@ class PythonProjectStructureTests(unittest.TestCase):
         stderr_file = six.StringIO()
         with self.assertRaises(SystemExit):
             with contextlib.redirect_stderr(stderr_file):
-                pythonprojectstructure.main(args=args)
+                mainwrapper.main(args=args)
         return stderr_file.getvalue()
 
     def test_cli_help(self):
@@ -37,10 +37,10 @@ class PythonProjectStructureTests(unittest.TestCase):
         stdout_file = six.StringIO()
         with self.assertRaises(SystemExit):
             with contextlib.redirect_stdout(stdout_file):
-                pythonprojectstructure.main(args=["--help"])
+                mainwrapper.main(args=["--help"])
         stdout = stdout_file.getvalue()
         self.assertIn(
-            pythonprojectstructure.__doc__.strip(),
+            mainwrapper.__doc__.strip(),
             stdout,
             "The console script name missing from --help output",
         )
@@ -49,7 +49,7 @@ class PythonProjectStructureTests(unittest.TestCase):
         """
         The command line script accepts options controlling behavior.
         """
-        result = pythonprojectstructure.main(args=[])
+        result = mainwrapper.main(args=[])
         self.assertIsNone(
             result, "Wrong console script options return value",
         )

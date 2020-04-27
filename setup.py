@@ -1,5 +1,5 @@
 """
-Python project structure foundation or template, distribution/package metadata.
+main wrapper foundation or template, distribution/package metadata.
 """
 
 import setuptools
@@ -10,13 +10,13 @@ with open("README.rst", "r") as readme:
 tests_require = ["six", 'contextlib2;python_version<"3"']
 
 setuptools.setup(
-    name="python-project-structure",
+    name="main-wrapper",
     author="Ross Patterson",
     author_email="me@rpatterson.net",
-    description="Python project structure foundation or template",
+    description="main wrapper foundation or template",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/x-rst",
-    url="https://github.com/rpatterson/python-project-structure",
+    url="https://github.com/rpatterson/python-main-wrapper",
     license="MIT",
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -33,8 +33,7 @@ setuptools.setup(
     packages=setuptools.find_packages("src"),
     package_dir={"": "src"},
     use_scm_version=dict(
-        write_to="src/pythonprojectstructure/version.py",
-        local_scheme="no-local-version",
+        write_to="src/mainwrapper/version.py", local_scheme="no-local-version",
     ),
     setup_requires=["setuptools_scm"],
     tests_require=tests_require,
@@ -51,7 +50,5 @@ setuptools.setup(
             "rstcheck",
         ]
     ),
-    entry_points=dict(
-        console_scripts=["python-project-structure=pythonprojectstructure:main"]
-    ),
+    entry_points=dict(console_scripts=["python-main-wrapper=mainwrapper:main"]),
 )
