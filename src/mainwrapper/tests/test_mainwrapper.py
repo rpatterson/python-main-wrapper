@@ -2,6 +2,7 @@
 Set up global environment and run another script within, and integration tests.
 """
 
+import site
 import unittest
 
 # BBB: Python 2 compatibility
@@ -40,7 +41,7 @@ class MainwrapperTests(unittest.TestCase):
                 mainwrapper.main(args=["--help"])
         stdout = stdout_file.getvalue()
         self.assertIn(
-            mainwrapper.__doc__.strip(),
+            mainwrapper.__doc__.strip().split("\n")[0][:55],
             stdout,
             "The console script name missing from --help output",
         )
@@ -49,18 +50,22 @@ class MainwrapperTests(unittest.TestCase):
         """
         The command line script accepts options controlling behavior.
         """
-        result = mainwrapper.main(args=[])
-        self.assertIsNone(
-            result, "Wrong console script options return value",
-        )
+        with self.assertRaises(SystemExit):
+            mainwrapper.main(args=[site.__file__, "site"])
+        with self.assertRaises(SystemExit):
+            mainwrapper.main(args=["site", "site:_script"])
+        with self.assertRaises(SystemExit):
+            mainwrapper.main(args=["_=site:_script", "site"])
 
     def test_cli_option_errors(self):
         """
         The command line script displays useful messages for invalid option values.
         """
-        stderr = self.getCliErrorMessages(args=["--non-existent-option"])
+        stderr = self.getCliErrorMessages(
+            args=["__non_existent_wrapper__", "__non_existent_script__"]
+        )
         self.assertIn(
-            "error: unrecognized arguments: --non-existent-option",
+            "Could not resolve '__non_existent_wrapper__'",
             stderr,
             "Wrong invalid option message",
         )

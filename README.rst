@@ -25,11 +25,49 @@ Install using any tool for installing standard Python 3 distributions such as `p
 Usage
 =====
 
-See the command-line help for details on options and arguments::
+You may use this package either as a library in your code that needs to wrap another
+script or as a command-line script.
 
-  $ usage: python-main-wrapper [-h]
+To use as a library, use the provided decorator to wrap your function that sets up the
+global environment you need the script to be run in::
 
-  Set up global environment and run another script within, ala pdb, profile, etc..
+  import logging
+  import argparse
+
+  import mainwrapper
+
+  parser = argparse.ArgumentParser()
+  parser.add_argument(
+      "--level",
+      default="INFO",
+      help="The level of messages to log at or above",
+  )
+
+  @mainwrapper.wrap_main(parser)
+  def main(level=parser.get_default("level")):
+      """
+      As an example, this function will set up logging at level INFO.
+      """
+      logging.basicConfig(level=getattr(logging, level))
+
+The changes to Python's global execution environment that support running the wrapper
+function and the final script are also cleaned up upon completion, so it should be
+possible to use this library to execute multiple scripts in the same process as if they
+were run independently.
+
+See the command-line help for details the options and arguments for using this package
+as a command-line script::
+
+  $ usage: python-main-wrapper [-h] wrapper script
+
+  Set up global environment and run another script within, ala pdb, profile, etc..  Both
+  script arguments may either be a path to a Python script, a Python module or package
+  to be run in the same manner as Python's `-m` option, or a setuptools
+  `path.to.import:callable` entry-point.
+
+  positional arguments:
+    wrapper     A Python script that sets up the environment
+    script      The Python script to run within the wrapper's environment
 
   optional arguments:
     -h, --help  show this help message and exit
