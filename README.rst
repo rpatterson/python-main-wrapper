@@ -1,25 +1,17 @@
 ==============================================================================
 python-main-wrapper
 ==============================================================================
-main wrapper foundation or template
+Set up global environment and run another script within, ala pdb, profile, etc
 ------------------------------------------------------------------------------
 
 .. image:: https://github.com/rpatterson/python-main-wrapper/workflows/Run%20linter,%20tests%20and,%20and%20release/badge.svg
 
-This repository is meant to be used as a minimal, yet opinionated baseline for `Python`_
-software projects.  It includes:
-
-
-- Basic `Python "distribution"/project`_ metadata
-- A `Makefile`_ for local development build and maintenance tasks
-
-The intended use is to add this repository as a VCS remote for your project.  Thus
-developers can merge changes from this repository as we make changes related to Python
-project structure and tooling.  As we add structure specific to certain types of
-projects (e.g. CLI scripts, web development, etc.), frameworks (e.g. Flask, Pyramid,
-Django, etc.), libraries and such, branches will be used for each such variation such
-that structure common to different variations can be merged back into the branches for
-those specific variations.
+Use `main-wrapper` either as a command-line script or as a library to make `Python`_
+scripts that set up or change some global Python environment and then run another script
+within that environment.  It seeks to combine into one library all the gloss and polish
+of other Python software that does this, such as using `python -m` with `pdb` and
+`profile` in the standard library or the `coverage` package's command-line `run`
+command.
 
 
 Installation
@@ -37,7 +29,7 @@ See the command-line help for details on options and arguments::
 
   $ usage: python-main-wrapper [-h]
 
-  Python project structure foundation or template, top-level package.
+  Set up global environment and run another script within, ala pdb, profile, etc..
 
   optional arguments:
     -h, --help  show this help message and exit
@@ -46,29 +38,10 @@ See the command-line help for details on options and arguments::
 Motivation
 ==========
 
-There are many other Python project templates so why make another? I've been doing
-Python development since 1998, so I've had plenty of time to develop plenty of opinions
-of my own.
-
-What I want in a template is complete tooling (e.g. test coverage, linting, formatting,
-CI/CD, etc.) but minimal dependencies, structure, and opinion beyond complete tooling
-(e.g. some non-Python build/task system, structure for frameworks/libraries not
-necessarily being used, etc.).  I couldn't find a template that manages that balance so
-here we are.
-
-I also find it hard to discern from other templates why they made what choices the did.
-As such, I also use this template as a way to try out various different options in the
-Python development world and evaluate them for myself.  You can learn about my findings
-and the reasons the choices I've made in the commit history.
-
-Most importantly, however, I've never found a satisfactory approach to keeping project
-structure up to date over time.  So the primary motivation is to use this repository as
-a remote from which we can merge structure updates over the life of projects using the
-template.
+I found myself writing such wrapper scripts repeatedly over the years and kept
+struggling to remember how I did it last time.  I made this package to capture all that
+knowledge and to have one place to put improvements as I discover them.
 
 
 .. _Python: https://docs.python.org/3/library/logging.html
-.. _Python "distribution"/project: https://docs.python.org/3/distributing/index.html
 .. _pip: https://pip.pypa.io/en/stable/installing/
-
-.. _Makefile: ./Makefile

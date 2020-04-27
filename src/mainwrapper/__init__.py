@@ -1,5 +1,5 @@
 """
-main wrapper foundation or template, top-level package.
+Set up global environment and run another script within, top-level package.
 """
 
 import argparse

@@ -1,5 +1,5 @@
 """
-main-wrapper unit and integration tests.
+Set up global environment and run another script within, and integration tests.
 """
 
 import unittest

@@ -13,7 +13,10 @@ setuptools.setup(
     name="main-wrapper",
     author="Ross Patterson",
     author_email="me@rpatterson.net",
-    description="main wrapper foundation or template",
+    description=(
+        "Set up global environment and run another script within, "
+        "ala pdb, profile, etc.."
+    ),
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/x-rst",
     url="https://github.com/rpatterson/python-main-wrapper",
