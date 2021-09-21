@@ -43,7 +43,18 @@ class MainwrapperTests(unittest.TestCase):
         self.assertIn(
             mainwrapper.__doc__.strip().split("\n")[0][:55],
             stdout,
-            "The console script name missing from --help output",
+            "The console script docstring missing from --help output",
+        )
+
+        wrapped_out_file = six.StringIO()
+        with self.assertRaises(SystemExit):
+            with contextlib.redirect_stdout(wrapped_out_file):
+                mainwrapper.main(args=["site", "site:_script", "--", "--help"])
+        wrapped_out = wrapped_out_file.getvalue()
+        self.assertNotIn(
+            mainwrapper.__doc__.strip().split("\n")[0][:55],
+            wrapped_out,
+            "The console script docstring included in wrapped --help output",
         )
 
     def test_cli_options(self):

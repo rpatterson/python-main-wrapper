@@ -72,6 +72,25 @@ as a command-line script::
   optional arguments:
     -h, --help  show this help message and exit
 
+Note that this package uses `argparse.ArgumentParser.parse_known_args`_ under the hood
+and as such be sure to use it's support for the ``--`` convention to separate arguments
+and options to be passed to the wrapped script::
+
+  $ python-main-wrapper site site:_script --help
+  ...
+  site.py [--user-base] [--user-site]
+
+  Without arguments print some useful information
+  With arguments print the value of USER_BASE and/or USER_SITE separated
+  by ':'.
+
+  Exit codes with --user-base or --user-site:
+    0 - user site directory is enabled
+    1 - user site directory is disabled by user
+    2 - user site directory is disabled by super user
+        or for security reasons
+   >2 - unknown error
+
 
 Motivation
 ==========
@@ -83,3 +102,4 @@ knowledge and to have one place to put improvements as I discover them.
 
 .. _Python: https://docs.python.org/3/library/logging.html
 .. _pip: https://pip.pypa.io/en/stable/installing/
+.. _argparse.ArgumentParser.parse_known_args: https://docs.python.org/dev/library/argparse.html#argparse.ArgumentParser.parse_known_args
