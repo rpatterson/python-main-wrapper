@@ -141,10 +141,10 @@ def exec_main(module_spec, code, *args):
         sys.argv[0] = code_path.name
         sys.argv[1:] = args
 
-        if isinstance(code, types.FunctionType):
+        if isinstance(code, types.FunctionType):  # pragma: no cover
             return code()
         else:
-            return six.exec_(code, globals_, globals_)
+            return six.exec_(code, globals_, globals_)  # pragma: no cover
 
     finally:
         sys.argv[:] = orig_argv
