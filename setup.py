@@ -36,7 +36,8 @@ setuptools.setup(
     packages=setuptools.find_packages("src"),
     package_dir={"": "src"},
     use_scm_version=dict(
-        write_to="src/mainwrapper/version.py", local_scheme="no-local-version",
+        write_to="src/mainwrapper/version.py",
+        local_scheme="no-local-version",
     ),
     setup_requires=["setuptools_scm"],
     install_requires=['pathlib2;python_version<"3"'],

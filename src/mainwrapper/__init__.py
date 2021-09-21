@@ -88,17 +88,22 @@ def main_type(arg):
 # Define command line options and arguments
 
 script_parser = argparse.ArgumentParser(
-    description=__doc__.strip(), formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    description=__doc__.strip(),
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter,
 )
 script_arg_kwargs = dict(
-    type=main_type, help="The Python script to run within the wrapper's environment",
+    type=main_type,
+    help="The Python script to run within the wrapper's environment",
 )
 script_parser.add_argument("script", **script_arg_kwargs)
 cli_parser = argparse.ArgumentParser(
-    description=__doc__.strip(), formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    description=__doc__.strip(),
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter,
 )
 cli_parser.add_argument(
-    "wrapper", type=main_type, help="A Python script that sets up the environment",
+    "wrapper",
+    type=main_type,
+    help="A Python script that sets up the environment",
 )
 cli_parser.add_argument("script", **script_arg_kwargs)
 
