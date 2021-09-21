@@ -40,7 +40,7 @@ setuptools.setup(
         local_scheme="no-local-version",
     ),
     setup_requires=["setuptools_scm"],
-    install_requires=['pathlib2;python_version<"3"'],
+    install_requires=["six", 'pathlib2;python_version<"3"'],
     tests_require=tests_require,
     extras_require=dict(
         dev=tests_require
