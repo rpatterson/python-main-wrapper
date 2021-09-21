@@ -192,7 +192,12 @@ def main(args=None):
     args, remaining = cli_parser.parse_known_args(args)
 
     wrapper_module_spec, wrapper_code = args.wrapper
-    exec_main(wrapper_module_spec, wrapper_code)
+    try:
+        exec_main(wrapper_module_spec, wrapper_code)
+    except SystemExit:
+        # Tolerate the wrapper script using the common `sys.exit(main())` pattern.
+        # Note that wrapper scripts should *not* do this.
+        pass
 
     module_spec, code = args.script  # pragma: no cover
     return exec_main(module_spec, code, *remaining)  # pragma: no cover
