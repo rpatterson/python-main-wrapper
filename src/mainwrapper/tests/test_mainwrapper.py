@@ -2,16 +2,12 @@
 Set up global environment and run another script within, and integration tests.
 """
 
+import sys
 import site
+import contextlib
+import io
+import subprocess
 import unittest
-
-# BBB: Python 2 compatibility
-try:
-    import contextlib2 as contextlib
-except ImportError:  # pragma: no cover
-    import contextlib
-
-import six
 
 import mainwrapper
 
@@ -21,11 +17,25 @@ class MainwrapperTests(unittest.TestCase):
     python-main-wrapper unit and integration tests.
     """
 
+    def test_importable(self):
+        """
+        The Python package is on `sys.path` and thus importable.
+        """
+        import_process = subprocess.run(
+            [sys.executable, "-c", "import mainwrapper"],
+            check=True,
+        )
+        self.assertEqual(
+            import_process.returncode,
+            0,
+            "The Python package not importable",
+        )
+
     def getCliErrorMessages(self, args):
         """
         Run the CLI script and return any error messages.
         """
-        stderr_file = six.StringIO()
+        stderr_file = io.StringIO()
         with self.assertRaises(SystemExit):
             with contextlib.redirect_stderr(stderr_file):
                 mainwrapper.main(args=args)
@@ -35,7 +45,7 @@ class MainwrapperTests(unittest.TestCase):
         """
         The command line script is self-docummenting.
         """
-        stdout_file = six.StringIO()
+        stdout_file = io.StringIO()
         with self.assertRaises(SystemExit):
             with contextlib.redirect_stdout(stdout_file):
                 mainwrapper.main(args=["--help"])
@@ -46,7 +56,7 @@ class MainwrapperTests(unittest.TestCase):
             "The console script docstring missing from --help output",
         )
 
-        wrapped_out_file = six.StringIO()
+        wrapped_out_file = io.StringIO()
         with self.assertRaises(SystemExit):
             with contextlib.redirect_stdout(wrapped_out_file):
                 mainwrapper.main(args=["site", "site:_script", "--", "--help"])

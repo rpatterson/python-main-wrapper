@@ -9,18 +9,11 @@ package to be run in the same manner as Python's `-m` option, or a setuptools
 import sys
 import runpy
 import types
+import pathlib
 import logging
 import argparse
 
 import pkg_resources
-
-# BBB: Python 2 compatibility
-try:
-    import pathlib
-except ImportError:  # pragma: no cover
-    import pathlib2 as pathlib
-
-import six
 
 # Manage version through the VCS CI/CD process
 try:
@@ -65,7 +58,7 @@ def main_type(arg):
         return None, entry_point.resolve()
 
     try:
-        _, module_spec, code = runpy._get_module_details(arg)
+        _, module_spec, code = runpy._get_module_details(arg)  # type: ignore
     except ImportError:
         logging.debug(
             "Could not import %r as module/package, "
@@ -149,7 +142,7 @@ def exec_main(module_spec, code, *args):
         if isinstance(code, types.FunctionType):  # pragma: no cover
             return code()
         else:
-            return six.exec_(code, globals_, globals_)  # pragma: no cover
+            return exec(code, globals_, globals_)  # pragma: no cover
 
     finally:
         sys.argv[:] = orig_argv
@@ -181,7 +174,7 @@ class wrap_main(object):  # pragma: no cover
             args, remaining = self.parser.parse_known_args(args)
             wrapped_func(**vars(args))
 
-            script_args, script_remaining = script_parser.parse_known_args(remaining)
+            script_args, _ = script_parser.parse_known_args(remaining)
             module_spec, code = script_args.script
             return exec_main(module_spec, code, *remaining)
 
